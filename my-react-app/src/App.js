@@ -28,8 +28,8 @@ function App() {
           </nav>
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route exact path="/about" element={<About />} />
-            <Route exact path="/contacts" element={<Contacts />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contacts" element={<Contacts />} />
           </Routes>
         </div>
       </Router>
