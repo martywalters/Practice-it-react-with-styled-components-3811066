@@ -4,35 +4,37 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './components/Home';
 import About from './components/About';
 import Contacts from './components/Contacts';
+import Button from './examples/Button';
+import Footer from './examples/Fooder';
+import Header from './examples/Fooder';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then(response =>
+        setData(response.data))
+      .catch(error =>
+        console.log('Error fetching data', error));
+  }, []);
+
+
+
   return (
-    <div className="App">
-      <h1>Welcome to My React App!</h1>
-      <Router>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-
-              <li>
-                <Link to="/contacts">Contact</Link>
-              </li>
-            </ul>
-          </nav>
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contacts" element={<Contacts />} />
-          </Routes>
-        </div>
-      </Router>
+    <div>
+      <Header />
+      <h1>My React App</h1>
+      <ul>
+        {data.map(post => (
+          <li
+            key={post.id}>{post.title}
+          </li>
+        ))}
+      </ul>
+      <Button lable="Click me!" />
+      <Footer />
     </div>
   );
 }
